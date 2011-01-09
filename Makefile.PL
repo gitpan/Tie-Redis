@@ -22,7 +22,7 @@ my %WriteMakefileArgs = (
   'PREREQ_PM' => {
     'AnyEvent::Redis' => '0'
   },
-  'VERSION' => '0.2',
+  'VERSION' => '0.21',
   'test' => {
     'TESTS' => 't/*.t'
   }

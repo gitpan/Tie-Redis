@@ -1,6 +1,6 @@
 package Tie::Redis;
 BEGIN {
-  $Tie::Redis::VERSION = '0.2';
+  $Tie::Redis::VERSION = '0.21';
 }
 # ABSTRACT: Connect perl data structures to Redis
 use strict;
@@ -10,6 +10,12 @@ use Carp ();
 use Tie::Redis::Hash;
 use Tie::Redis::List;
 use Tie::Redis::Scalar;
+
+{
+  # Work around bug in AnyEvent::Redis 0.22.
+  no strict 'refs';
+  *anyevent_read_type = *AnyEvent::Redis::anyevent_read_type;
+}
 
 sub TIEHASH {
   my($class, %args) = @_;
@@ -172,7 +178,7 @@ Tie::Redis - Connect perl data structures to Redis
 
 =head1 VERSION
 
-version 0.2
+version 0.21
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,6 @@
 package Tie::Redis::Scalar;
 BEGIN {
-  $Tie::Redis::Scalar::VERSION = '0.2';
+  $Tie::Redis::Scalar::VERSION = '0.21';
 }
 
 # Consider using overload instead of this maybe, could then implement things
@@ -38,7 +38,7 @@ Tie::Redis::Scalar
 
 =head1 VERSION
 
-version 0.2
+version 0.21
 
 =head1 SYNOPSIS
 
@@ -50,7 +50,7 @@ Tie::Redis::Scalar - Connect a Redis key to a Perl scalar
 
 =head1 VERSION
 
-version 0.2
+version 0.21
 
 =head1 AUTHOR
 
