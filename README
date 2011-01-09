@@ -1,0 +1,13 @@
+
+
+This archive contains the distribution Tie-Redis,
+version 0.1:
+
+  Connect perl data structures to Redis
+
+This software is copyright (c) 2011 by David Leadbeater.
+
+This is free software; you can redistribute it and/or modify it under
+the terms of the Beerware license.
+
+

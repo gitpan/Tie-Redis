@@ -1,0 +1,17 @@
+LICENSE
+MANIFEST
+META.yml
+Makefile.PL
+README
+TODO
+dist.ini
+lib/Tie/Redis.pm
+lib/Tie/Redis/Hash.pm
+lib/Tie/Redis/List.pm
+lib/Tie/Redis/Scalar.pm
+t/01.load.t
+t/02.hash.t
+t/Redis.pm
+t/redis.conf.base
+t/release-pod-coverage.t
+t/release-pod-syntax.t
