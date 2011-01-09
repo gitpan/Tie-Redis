@@ -1,6 +1,6 @@
 package Tie::Redis::List;
 BEGIN {
-  $Tie::Redis::List::VERSION = '0.1';
+  $Tie::Redis::List::VERSION = '0.2';
 }
 
 sub TIEARRAY {
@@ -62,7 +62,7 @@ Tie::Redis::List
 
 =head1 VERSION
 
-version 0.1
+version 0.2
 
 =head1 SYNOPSIS
 
@@ -74,7 +74,7 @@ Tie::Redis::List - Connect a Redis list to a Perl array
 
 =head1 VERSION
 
-version 0.1
+version 0.2
 
 =head1 AUTHOR
 
