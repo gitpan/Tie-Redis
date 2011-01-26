@@ -13,8 +13,10 @@ meta-spec:
   version: 1.4
 name: Tie-Redis
 requires:
-  AnyEvent::Redis: 0
+  AnyEvent::Redis: 0.23
+  PadWalker: 1.0
+  parent: 0
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Tie-Redis
   repository: git://github.com/dgl/Tie-Redis
-version: 0.21
+version: 0.22_1

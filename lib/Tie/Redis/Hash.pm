@@ -1,7 +1,8 @@
 package Tie::Redis::Hash;
 BEGIN {
-  $Tie::Redis::Hash::VERSION = '0.21';
+  $Tie::Redis::Hash::VERSION = '0.22_1';
 }
+# ABSTRACT: Connect a Redis hash to a Perl hash
 
 sub TIEHASH {
   my($class, %args) = @_;
@@ -65,20 +66,9 @@ sub SCALAR {
 1;
 
 
+
 __END__
 =pod
-
-=head1 NAME
-
-Tie::Redis::Hash
-
-=head1 VERSION
-
-version 0.21
-
-=head1 SYNOPSIS
-
-=cut
 
 =head1 NAME
 
@@ -86,7 +76,9 @@ Tie::Redis::Hash - Connect a Redis hash to a Perl hash
 
 =head1 VERSION
 
-version 0.21
+version 0.22_1
+
+=head1 SYNOPSIS
 
 =head1 AUTHOR
 

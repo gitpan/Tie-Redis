@@ -20,9 +20,11 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'unrestricted',
   'NAME' => 'Tie::Redis',
   'PREREQ_PM' => {
-    'AnyEvent::Redis' => '0'
+    'AnyEvent::Redis' => '0.23',
+    'PadWalker' => '1.0',
+    'parent' => '0'
   },
-  'VERSION' => '0.21',
+  'VERSION' => '0.22_1',
   'test' => {
     'TESTS' => 't/*.t'
   }

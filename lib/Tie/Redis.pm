@@ -1,6 +1,6 @@
 package Tie::Redis;
 BEGIN {
-  $Tie::Redis::VERSION = '0.21';
+  $Tie::Redis::VERSION = '0.22_1';
 }
 # ABSTRACT: Connect perl data structures to Redis
 use strict;
@@ -11,17 +11,11 @@ use Tie::Redis::Hash;
 use Tie::Redis::List;
 use Tie::Redis::Scalar;
 
-{
-  # Work around bug in AnyEvent::Redis 0.22.
-  no strict 'refs';
-  *anyevent_read_type = *AnyEvent::Redis::anyevent_read_type;
-}
-
 sub TIEHASH {
   my($class, %args) = @_;
   my $serialize = delete $args{serialize};
 
-  my $self = $class->AnyEvent::Redis::new(%args);
+  my $self = $class->SUPER::new(%args);
   $self->{serialize} = $self->_serializer($serialize);
 
   return $self;
@@ -42,10 +36,13 @@ sub _serializer {
       \&Storaable::thaw
     ],
     msgpack => [
+      sub { require Data::MessagePack },
+      sub { unshift @_, "Data::MessagePack"; goto &Data::MessagePack::pack },
+      sub { unshift @_, "Data::MessagePack"; goto &Data::MessagePack::unpack }
     ],
   );
 
-  my $serializer = $serializers{$serialize} || [undef, (sub {
+  my $serializer = $serializers{$serialize || ''} || [undef, (sub {
     Carp::croak("No serializer specified for Tie::Redis; unable to handle nested structures");
   }) x 2];
 
@@ -65,14 +62,22 @@ sub _cmd {
   if($self->{use_recv}) {
     $self->$cmd(@args)->recv;
   } else {
-    my $ok = 0;
-    my $ret;
-    $self->$cmd(@args, sub { $ok = 1; $ret = $_[0] });
+    my($ret, $error, $done);
+
+    $done = 0;
+    my $cv = $self->$cmd(@args);
+    $cv->cb(sub {
+        $done = 1;
+        $ret = eval { $_[0]->recv };
+        if($@) {
+          $error = $@;
+        }
+      });
 
     # We need to block, but using ->recv won't work if the program is using
     # ->recv at a higher level, so we do this slight hack.
-    # XXX: How to handle errors?
-    AnyEvent->one_event until $ok;
+    AnyEvent->one_event until $done;
+    die $error if defined $error;
     $ret;
   }
 }
@@ -178,12 +183,16 @@ Tie::Redis - Connect perl data structures to Redis
 
 =head1 VERSION
 
-version 0.21
+version 0.22_1
 
 =head1 SYNOPSIS
 
  use Tie::Redis;
  tie my %r, "Tie::Redis";
+
+ $r{foo} = 42;
+
+ print $r{foo}; # 42, persistently
 
 =head1 DESCRIPTION
 
@@ -194,11 +203,48 @@ B<Please> think carefully before using this, the tie interface has quite a
 performance overhead and the error handling is not that great. Using
 L<AnyEvent::Redis> or L<Redis> directly is recommended.
 
+=head2 General usage
+
+L<Tie::Redis> provides an interface to the top level Redis "hash table";
+depending on the type of key you access this then returns a value tied to
+L<Tie::Redis::Hash>, L<Tie::Redis::List>, L<Tie::Redis::Scalar> or a set type
+(unfortunately, these aren't yet implemented).
+
+If an error occurs these types will throw an exception, therefore you may want
+to surround your Redis accessing code with an C<eval> block (or use
+L<Try::Tiny>).
+
+=head2 Issues
+
+There are some cases where Redis and Perl types do not match, for example empty
+lists in Redis have a type of "none", therefore if you empty a list and then
+try to access it again it will no longer be an array reference.
+
+Autovivification currently doesn't correctly work, I believe some of this may
+be fixable but haven't yet fully investigated.
+
 =head1 SEE ALSO
 
-L<App::redisp> -- a redis shell in Perl and the main reason I wrote this
-module. L<AnyEvent::Redis> -- the API this uses to access Redis. L<Redis> --
-another Redis API.
+=over 4
+
+=item * L<App::redisp>
+
+A redis shell in Perl and the main reason I wrote this
+module.
+
+=item * L<Tie::Redis::Attributes>
+
+An experimental attribute based interface.
+
+=item * L<AnyEvent::Redis>
+
+The API this uses to access Redis.
+
+=item * L<Redis>
+
+Another Redis API.
+
+=back
 
 =head1 AUTHOR
 
