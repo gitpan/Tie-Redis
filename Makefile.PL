@@ -4,29 +4,29 @@ use warnings;
 
 
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Connect perl data structures to Redis',
-  'AUTHOR' => 'David Leadbeater <dgl@dgl.cx>',
-  'BUILD_REQUIRES' => {},
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+  "ABSTRACT" => "Connect perl data structures to Redis",
+  "AUTHOR" => "David Leadbeater <dgl\@dgl.cx>",
+  "BUILD_REQUIRES" => {},
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
   },
-  'DISTNAME' => 'Tie-Redis',
-  'EXE_FILES' => [],
-  'LICENSE' => 'unrestricted',
-  'NAME' => 'Tie::Redis',
-  'PREREQ_PM' => {
-    'AnyEvent::Redis' => '0.23',
-    'PadWalker' => '1.0',
-    'parent' => '0'
+  "DISTNAME" => "Tie-Redis",
+  "EXE_FILES" => [],
+  "LICENSE" => "unrestricted",
+  "NAME" => "Tie::Redis",
+  "PREREQ_PM" => {
+    "IO::Socket::IP" => 0,
+    "PadWalker" => "1.0",
+    "Protocol::Redis" => "1.0"
   },
-  'VERSION' => '0.22_1',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "0.23",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 

@@ -1,6 +1,6 @@
 package Tie::Redis::Hash;
-BEGIN {
-  $Tie::Redis::Hash::VERSION = '0.22_1';
+{
+  $Tie::Redis::Hash::VERSION = '0.23';
 }
 # ABSTRACT: Connect a Redis hash to a Perl hash
 
@@ -76,7 +76,7 @@ Tie::Redis::Hash - Connect a Redis hash to a Perl hash
 
 =head1 VERSION
 
-version 0.22_1
+version 0.23
 
 =head1 SYNOPSIS
 
@@ -88,8 +88,9 @@ David Leadbeater <dgl@dgl.cx>
 
 This software is copyright (c) 2011 by David Leadbeater.
 
-This is free software; you can redistribute it and/or modify it under
-the terms of the Beerware license.
+This program is free software. It comes without any warranty, to the extent
+permitted by applicable law. You can redistribute it and/or modify it under the
+terms of the Beer-ware license revision 42.
 
 =cut
 

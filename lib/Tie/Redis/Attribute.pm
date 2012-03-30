@@ -1,6 +1,6 @@
 package Tie::Redis::Attribute;
-BEGIN {
-  $Tie::Redis::Attribute::VERSION = '0.22_1';
+{
+  $Tie::Redis::Attribute::VERSION = '0.23';
 }
 # ABSTRACT: Variable attribute based interface to Tie::Redis
 
@@ -100,7 +100,7 @@ sub server {
   state %server;
 
   $server{($args{host}||"") . ":" . ($args{port}||"")}
-    ||= Tie::Redis->new(%args);
+    ||= Tie::Redis::Connection->new(%args);
 }
 
 1;
@@ -115,7 +115,7 @@ Tie::Redis::Attribute - Variable attribute based interface to Tie::Redis
 
 =head1 VERSION
 
-version 0.22_1
+version 0.23
 
 =head1 SYNOPSIS
 
@@ -176,8 +176,9 @@ David Leadbeater <dgl@dgl.cx>
 
 This software is copyright (c) 2011 by David Leadbeater.
 
-This is free software; you can redistribute it and/or modify it under
-the terms of the Beerware license.
+This program is free software. It comes without any warranty, to the extent
+permitted by applicable law. You can redistribute it and/or modify it under the
+terms of the Beer-ware license revision 42.
 
 =cut
 

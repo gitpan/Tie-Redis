@@ -7,6 +7,7 @@ TODO
 dist.ini
 lib/Tie/Redis.pm
 lib/Tie/Redis/Attribute.pm
+lib/Tie/Redis/Connection.pm
 lib/Tie/Redis/Hash.pm
 lib/Tie/Redis/List.pm
 lib/Tie/Redis/Scalar.pm
