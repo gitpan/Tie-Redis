@@ -1,6 +1,6 @@
 package Tie::Redis::Hash;
 {
-  $Tie::Redis::Hash::VERSION = '0.23';
+  $Tie::Redis::Hash::VERSION = '0.24';
 }
 # ABSTRACT: Connect a Redis hash to a Perl hash
 
@@ -76,7 +76,7 @@ Tie::Redis::Hash - Connect a Redis hash to a Perl hash
 
 =head1 VERSION
 
-version 0.23
+version 0.24
 
 =head1 SYNOPSIS
 

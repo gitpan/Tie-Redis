@@ -1,6 +1,6 @@
 package Tie::Redis::Connection;
 {
-  $Tie::Redis::Connection::VERSION = '0.23';
+  $Tie::Redis::Connection::VERSION = '0.24';
 }
 # ABSTRACT: Connection to Redis
 use strict;
@@ -81,7 +81,7 @@ Tie::Redis::Connection - Connection to Redis
 
 =head1 VERSION
 
-version 0.23
+version 0.24
 
 =head1 AUTHOR
 
