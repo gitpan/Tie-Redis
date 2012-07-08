@@ -1,6 +1,6 @@
 package Tie::Redis::Connection;
 {
-  $Tie::Redis::Connection::VERSION = '0.24';
+  $Tie::Redis::Connection::VERSION = '0.25';
 }
 # ABSTRACT: Connection to Redis
 use strict;
@@ -35,7 +35,9 @@ sub new {
   }, $class;
 }
 
-sub DESTROY { }
+sub DESTROY {
+  close shift->{_sock};
+}
 
 sub AUTOLOAD {
   my $self = shift;
@@ -56,14 +58,17 @@ sub _cmd {
   
   my $message;
   do {
-    $self->{_sock}->sysread(my $buf, 8192);
+    $self->{_sock}->sysread(my $buf, 8192) or return;
     $self->{_pr}->parse($buf);
     $message = $self->{_pr}->get_message;
   } while not $message;
 
   if($message->{type} eq '*') {
     warn "TR<< ", (join " ", map $_->{data}, @{$message->{data}}), "\n" if DEBUG;
-    [map $_->{data}, @{$message->{data}}];
+    my @data = map $_->{data}, @{$message->{data}};
+    wantarray ? @data : \@data;
+  } elsif($message->{type} eq '-') {
+    Carp::croak "$cmd: " . $message->{data};
   } else {
     warn "TR<< $message->{data}\n" if DEBUG;
     $message->{data};
@@ -81,7 +86,7 @@ Tie::Redis::Connection - Connection to Redis
 
 =head1 VERSION
 
-version 0.24
+version 0.25
 
 =head1 AUTHOR
 

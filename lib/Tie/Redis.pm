@@ -1,6 +1,6 @@
 package Tie::Redis;
 {
-  $Tie::Redis::VERSION = '0.24';
+  $Tie::Redis::VERSION = '0.25';
 }
 # ABSTRACT: Connect perl data structures to Redis
 use strict;
@@ -166,7 +166,7 @@ Tie::Redis - Connect perl data structures to Redis
 
 =head1 VERSION
 
-version 0.24
+version 0.25
 
 =head1 SYNOPSIS
 
