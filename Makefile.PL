@@ -24,7 +24,7 @@ my %WriteMakefileArgs = (
     "PadWalker" => "1.0",
     "Protocol::Redis" => "1.0"
   },
-  "VERSION" => "0.25",
+  "VERSION" => "0.26",
   "test" => {
     "TESTS" => "t/*.t"
   }
